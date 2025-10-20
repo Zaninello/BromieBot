@@ -1,5 +1,5 @@
-# TaskBot
-#### Este Bot do Telegram tem como função gerenciar tarefas interativamente com o usuário.
+# BromieBot
+Este Bot do Telegram tem como função gerenciar tarefas interativamente com o usuário.
 
 ## :mag:Funcionalidades:  
 [ ] Adicionar Tarefa  
@@ -22,7 +22,7 @@
 /Concluir 🠒 Encerra a tarefa criada anteriormente, seguindo a norma de escrita aceita pelo Bot.  
 
 ## :tophat:Como Acessar o Bot:
-Procure por "" no Telegram e inicie o chat enviando-o uma mensagem agradável.
+Procure por "BromieBot" no Telegram e inicie o chat enviando-o uma mensagem agradável.
   
 ## :bulb:Tecnologias Utilizadas:
 
