@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Iniciando BromieBot");
+            Console.WriteLine("Iniciando ");
         }
     }
 }
