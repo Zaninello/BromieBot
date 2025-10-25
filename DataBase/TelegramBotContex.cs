@@ -9,9 +9,9 @@ namespace DataBase;
 public partial class TelegramBotContex : DbContext
 {
     
-    public virtual DbSet<Todo> Todos { get; set; }
+    public DbSet<Todo> Todos { get; set; }
 
-    public virtual DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -1,17 +1,11 @@
 ﻿using DataBase;
 using Models;
-using static DataBase.GlobalConnections;
+using Repository;
 
 namespace Functions;
 
-public class Functions
+public class TodoData(ITodoRepository repository)
 {
-    private readonly ITodoRepository repository;
-    public Functions(ITodoRepository repository)
-    { 
-        this.repository = repository;
-    }
-
     public void AddTask(long idUser, string header, string description, string status)
     {
         var todo = new Todo()
@@ -27,7 +21,10 @@ public class Functions
 
     public void RemoveTask(string header)
     {
-        var todo = repository.BuscarTodos().FirstOrDefault(t => t.Header == header);
+        var todo = repository
+            .BuscarTodos()
+            .FirstOrDefault(t => t.Header == header);
+
         repository.RemoveTodo(todo!);
     }
 
@@ -40,26 +37,12 @@ public class Functions
     public List<Todo> ShowTodos(long chatId) => 
         repository.BuscarTodos().Where(t => t.IdUser == chatId).ToList();
 
-    public bool VerificaExistenciaTodos(string header) =>
-        repository.BuscarTodos().Any(h => h.Header == header);
-
-    public bool VerificaUsuario(long chatId) =>
-        repository.BuscarUsuarios().Any(u => u.ChatId == chatId);
-    public void AddUser(string nome, long chatId)
-    {
-        var user = new Usuario
-        {
-            Nome = nome,
-            ChatId = chatId
-        };
-
-        repository.AddUser(user);
-    }
+    public bool VerificaExistenciaTodo(long chatId, string header) =>
+        ShowTodos(chatId).Any(t => t.Header == header);
 
     public void ConcluirTarefa(string header)
     {
         var tarefa = repository.BuscarTodos().FirstOrDefault(t => t.Header == header);
-        repository.Concluir(tarefa);
+        repository.ConcluirTodo(tarefa);
     }
-
 }

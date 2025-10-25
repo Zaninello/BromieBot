@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models;
 
-public partial class Todo
+public class Todo
 {
     [Key]
     public int Id { get; set; }

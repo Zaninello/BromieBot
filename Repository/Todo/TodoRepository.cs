@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DataBase;
+using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Identity.Client;
-using Models;
 
-namespace DataBase;
+namespace Repository;
 
 public class TodoRepository : ITodoRepository
 {
@@ -31,21 +31,11 @@ public class TodoRepository : ITodoRepository
 
     public void EditTodo(Todo todo)
     {
-        var t = _conexao.Todos.FirstOrDefault(x => x.Id == todo.Id);
-        t.Description = todo.Description;
+        todo.Description = todo.Description;
         _conexao.SaveChanges();
     }
 
-    public void AddUser(Usuario user)
-    {
-        _conexao.Usuarios.Add(user);
-        _conexao.SaveChanges();
-    }
-
-    public List<Usuario> BuscarUsuarios() => 
-        _conexao.Usuarios.ToList();
-
-    public void Concluir(Todo todo)
+    public void ConcluirTodo(Todo todo)
     {
         todo.Status = "concluido";
         _conexao.SaveChanges();

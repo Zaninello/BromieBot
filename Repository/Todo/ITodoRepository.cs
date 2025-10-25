@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Models;
 
-namespace DataBase;
+namespace Repository;
 
 public interface ITodoRepository
 {
@@ -13,7 +13,5 @@ public interface ITodoRepository
     void AddTodo(Todo todo);
     void RemoveTodo(Todo todo);
     void EditTodo(Todo todo);
-    void AddUser(Usuario user);
-    List<Usuario> BuscarUsuarios();
-    void Concluir(Todo todo);
+    void ConcluirTodo(Todo todo);
 }
