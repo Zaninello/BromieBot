@@ -5,11 +5,13 @@ VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BromieBot", "BromieBot\BromieBot.csproj", "{8B463605-AEAC-491D-AD53-3DCB4B365982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Functions.csproj", "{D59A96D1-ADF2-4FB4-BA33-71C8D9EF1C74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Functions\Data.csproj", "{D59A96D1-ADF2-4FB4-BA33-71C8D9EF1C74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{97C64547-9A5A-4008-AE0A-448A70DEDFA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "DataBase\DataBase.csproj", "{4378618F-4E53-4AD7-AF68-8EDE2AA9C8DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{EC80235A-E994-466C-B082-7FEE4D4760C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4378618F-4E53-4AD7-AF68-8EDE2AA9C8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4378618F-4E53-4AD7-AF68-8EDE2AA9C8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4378618F-4E53-4AD7-AF68-8EDE2AA9C8DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

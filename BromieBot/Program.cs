@@ -1,12 +1,14 @@
 ﻿using System.Globalization;
 using System.Net.Http.Headers;
+using Data;
 using DataBase;
+using Functions;
 using Microsoft.EntityFrameworkCore.Design;
 using Models;
+using Repository;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using static Functions.Functions;
-//using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Telegram.Bot.Types.Enums;
 
 namespace BromieBot;
 
@@ -14,7 +16,7 @@ public static class Program
 {
     static async Task Main(string[] args)
     {
-        var bot = new TelegramBotClient();
+        var bot = new TelegramBotClient("");
         bot.StartReceiving(ProcessUpdate, ProcessError);
         Console.ReadLine();
     }
@@ -23,62 +25,99 @@ public static class Program
         var text = update.Message.Text;
         var chatId = update.Message.Chat.Id;
 
-        var functions = new Functions.Functions(new TodoRepository());
+        var userData = new UserData(new UserRepository());
+        var todoData = new TodoData(new TodoRepository());
 
         if (string.IsNullOrEmpty(text)) return;
 
-        if (functions.VerificaUsuario(chatId) is false)
-            functions.AddUser(update.Message.Chat.FirstName, chatId);
+        if (userData.VerificaUsuario(chatId) is false)
+            userData.AddUser(update.Message.Chat.FirstName, chatId);
 
-        if (text.ToLower() == "/menu")
+        var command = text.Split(" ");
+
+        if (command[0].ToLower() == "/menu")
         {
-            await bot.SendMessage(chatId, "/add\n/deletar\n/edit\n/show\n/concluir");
+            await bot.SendMessage(
+                chatId, 
+                "*_MENU_*" + 
+                "\n/add _<nome_data_tarefa> <descricao da tarefa>_" +
+                "\n/deletar _<nome_da_tarefa>_"+
+                "\n/edit _<nome_da_tarefa>_ _descricao_nova_\n" + 
+                "/show - mostra suas tarefas\n" +
+                "/concluir _<nome_da_tarefa> - conclui uma tarefa_",
+                ParseMode.MarkdownV2
+            );
             return;
         }
-        if (text.ToLower() == "/show")
-        {
-            var list = functions.ShowTodos(chatId);
 
-            if (list.Count() == 0)
+        if (command[0].ToLower() == "/show")
+        {
+            var list = todoData.ShowTodos(chatId);
+
+            if (list.Count == 0)
             {
-                await bot.SendMessage(chatId, "Lista vazia");
+                await bot.SendMessage(chatId, "Não há nenhuma tarefa");
                 return;
             }
 
             foreach (var item in list)
             {
-                await bot.SendMessage(chatId, $"Id: {item.Id}." +
-                                              $"\nHeader: {item.Header}." +
-                                              $"\nDescription: {item.Description}." +
-                                              $"\nStatus: {item.Status}.");
+                await bot.SendMessage(
+                    chatId, 
+                    $"Id: {item.Id}." +
+                    $"\nHeader: {item.Header}." +
+                    $"\nDescription: {item.Description}." +
+                    $"\nStatus: {item.Status}."
+                );
             }
             return;
         }
 
-        if (text.Split(" ").Count() == 2)
+        if (command.Count() == 2)
         {
-            var cmd = text.Split(" ");
-
-            if (cmd[0] == "/concluir")
+            var firstCommand = command[0];
+            var todoName = command[1];
+            if (firstCommand == "/concluir")
             {
-                if (functions.VerificaExistenciaTodos(cmd[1]) is false)
+                if (todoData.VerificaExistenciaTodo(chatId, todoName) is false)
                 {
-                    await bot.SendMessage(chatId, $"tarefa {cmd[1]} não existe.");
+                    await bot.SendMessage(
+                        chatId, 
+                        $"tarefa {todoName} não existe."
+                    );
                     return;
                 }
-                functions.ConcluirTarefa(cmd[1]);
-                await bot.SendMessage(chatId, $"tarefa concluida.");
+                
+                todoData.ConcluirTarefa(todoName);
+
+                await bot.SendMessage(
+                    chatId, 
+                    $"tarefa: {todoName} concluida."
+                );
+                
                 return;
             }
-            if (cmd[0] == "/deletar")
+            if (firstCommand == "/deletar")
             {
-                if (functions.VerificaExistenciaTodos(cmd[1]) is false)
+                var todoExists = todoData
+                    .VerificaExistenciaTodo(chatId, todoName);
+
+                if (todoExists is false)
                 {
-                    await bot.SendMessage(chatId, $"tarefa { cmd[1]} não existe.");
+                    await bot.SendMessage(
+                        chatId, 
+                        $"A tarefa: {todoName} não existe."
+                    );
                     return;
                 }
-                functions.RemoveTask(cmd[1]);
-                await bot.SendMessage(chatId, $"Tarefa {cmd[1]} removida com sucesso!");
+
+                todoData.RemoveTask(todoName);
+
+                await bot.SendMessage(
+                    chatId, 
+                    $"A tarefa: {todoName} removida com sucesso!"
+                );
+                
                 return;
             }
         }
@@ -89,46 +128,51 @@ public static class Program
             return;
         }
 
-        var command = text.Split(" ")[0].ToLower();
-        var header = text.Split(" ")[1].ToLower();
-        var description = text.Split(" ")[2].ToLower();
-        
-        switch (command)
+        switch (command[0])
         {
             case "/add":
-                if (functions.VerificaExistenciaTodos(header))
+                if (todoData.VerificaExistenciaTodo(chatId, command[1]))
                 {
                     await bot.SendMessage(
                         chatId, 
-                        $"Já existe uma tarefa com este nome: {header}.\n" +
-                                            $"Para prosseguir chame o /Menu novamente."
-                        );
+                        $"Já existe uma tarefa com este nome: {command[1]}.\n" +
+                        $"Para prosseguir chame o /Menu novamente."
+                    );
                     return;
                 }
                 
-                functions.AddTask(
+                todoData.AddTask(
                     chatId,
-                    header, 
-                    description,
+                    command[1],
+                    command[2],
                     "pendente"
                 );
 
-                await bot.SendMessage(chatId,$"Tarefa {header} adicionada com sucesso!");
+                await bot.SendMessage(
+                    chatId,
+                    $"Tarefa {command[1]} adicionada com sucesso!"
+                );
+
                 break;
 
-            
-
-                
-
             case "/edit":
-                if (functions.VerificaExistenciaTodos(header) is false)
+                if (todoData.VerificaExistenciaTodo(chatId, command[1]) is false)
                 {
-                    await bot.SendMessage(chatId, $"A tarefa: {header} não existe.");
+                    await bot.SendMessage(chatId, $"A tarefa: {command[1]} não existe.");
                     return;
                 }
 
-                functions.EditTodo(header, description);
-                await bot.SendMessage(chatId, $"Tarefa {header} alterada com sucesso!");
+                todoData.EditTodo(command[1], command[2]);
+                await bot.SendMessage(
+                    chatId, 
+                    $"Tarefa {command[1]} alterada com sucesso!"
+                );
+                break;
+            default:
+                await bot.SendMessage(
+                    chatId, 
+                    $"Comando {command[1]} não reconhecido!"
+                );
                 break;
         }
     }
