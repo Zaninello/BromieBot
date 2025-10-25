@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BromieBot;
+namespace Models;
 
 public partial class Usuario
 {
-    public int Id { get; set; }
-
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public long ChatId { get; set; }
     public string? Nome { get; set; }
-
-    public virtual ICollection<Log> Logs { get; set; } = new List<Log>();
 }
