@@ -7,7 +7,8 @@
 ------------
 
 The **BromieBot** is a simple Telegram bot designed to manage your tasks (To-Do List). It allows users to add, view, edit, delete, and complete tasks directly through the Telegram chat, using text commands. The bot uses **Entity Framework Core** for data persistence in a **SQL Server** database.
-🛠️ Technologies Used
+
+ **🛠️ Technologies Used**
 
 --------------------------
 
@@ -24,7 +25,7 @@ The **BromieBot** is a simple Telegram bot designed to manage your tasks (To-Do 
 🚀 How to Run
 ----------------
 
-#### Access Telegram and search for the user name "BromieBot", access the TaskBot chat, and start your task manager with the command /Menu.
+#### Access Telegram and search for the user name "Brom1eBot", access the TaskBot chat, and start your task manager with the command /Menu.
 
 -------------------
 
