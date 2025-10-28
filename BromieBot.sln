@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "DataBase\DataBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{EC80235A-E994-466C-B082-7FEE4D4760C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSettings", "AppSettings\AppSettings.csproj", "{35843ED0-671C-4575-AD2A-25C7CC54404F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC80235A-E994-466C-B082-7FEE4D4760C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using static AppSettings.AppSettings;
 using Models;
 
 namespace DataBase;
@@ -15,6 +16,6 @@ public partial class TelegramBotContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("");
+        optionsBuilder.UseSqlServer(DbConn);
     }
 }
