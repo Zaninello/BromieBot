@@ -17,7 +17,7 @@ public static class Program
 {
     static async Task Main(string[] args)
     {
-        var bot = new TelegramBotClient("");
+        var bot = new TelegramBotClient("8385370346:AAEjOGnEk0yJtJ_l4RNtrZtDaQ5BfNYdl1g");
         bot.StartReceiving(ProcessUpdate, ProcessError);
         Console.ReadLine();
     }
@@ -69,11 +69,11 @@ public static class Program
             await bot.SendMessage(
                 chatId,
                 "<b><i>MENU</i></b>" +
-                "\n/add <i>&lt;Task_Name&gt; &lt;Task description&gt;</i>" +
-                "\n/delete <i>&lt;Task_Name&gt;</i>" +
-                "\n/edit <i>&lt;Task_Name&gt;</i> <i>New description</i>\n" +
+                "\n/add <i>Task_Name</i>   <i>Task description</i>" +
+                "\n/delete <i>Task_Name</i>" +
+                "\n/edit <i>Task_Name</i>   <i>New description</i>\n" +
                 "/show - show tasks\n" +
-                "/complete <i>&lt;Task_Name&gt;</i> - Complete tasks",
+                "/complete <i>Task_Name</i>  - Complete tasks",
                 ParseMode.Html
             );
             return;

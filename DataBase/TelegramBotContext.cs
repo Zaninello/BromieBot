@@ -15,6 +15,6 @@ public partial class TelegramBotContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("");
+        optionsBuilder.UseSqlServer("Data Source=taylors42.com.br,1433;Initial Catalog=Bromie;Persist Security Info=False;User ID=sa;Password=SuaSenhaForte123!;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Command Timeout=30");
     }
 }
