@@ -35,6 +35,7 @@ public static class Program
         bot.StartReceiving(ProcessUpdate, ProcessError);
         Console.WriteLine("bot running...");
         Console.ReadLine();
+        await Task.Delay(-1);
     }
     public static async Task ProcessUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
