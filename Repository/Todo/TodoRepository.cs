@@ -1,4 +1,5 @@
 ﻿using DataBase;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ public class TodoRepository : ITodoRepository
     public TodoRepository() => _connection = new TelegramBotContext();
 
     public List<Todo> SearchTodos() =>
-        _connection.Todos.ToList();
+        _connection.Todos.AsNoTracking().ToList();
 
     public void AddTodo(Todo todo)
     {

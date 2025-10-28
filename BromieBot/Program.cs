@@ -10,16 +10,32 @@ using Repository;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-
+using static AppSettings.AppSettings;
 namespace BromieBot;
 
 public static class Program
 {
     static async Task Main(string[] args)
     {
-        var bot = new TelegramBotClient("");
+        DbConn = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        TgConn = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
+        
+        if (DbConn is null)
+        {
+            Console.WriteLine("The connection string is empty");
+            return;
+        }
+        if (TgConn is null)
+        {
+            Console.WriteLine("The telegram token is empty");
+            return;
+        }
+
+        var bot = new TelegramBotClient(TgConn);
         bot.StartReceiving(ProcessUpdate, ProcessError);
+        Console.WriteLine("bot running...");
         Console.ReadLine();
+        await Task.Delay(-1);
     }
     public static async Task ProcessUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
@@ -37,12 +53,9 @@ public static class Program
         string[] partes = text.Split(" ");
 
         var des = partes.Skip(2);
-        
-        var command = "";
-        
-        var header = "";
-        
-        string description = string.Empty;
+
+        string command, header, description;
+        command = header = description = string.Empty;
 
         if (partes.Count() >= 3)
         {
@@ -58,10 +71,6 @@ public static class Program
         else if((partes.Count() == 1 && partes[0].ToLower() is "/menu") || (partes.Count() == 1 && partes[0].ToLower() is "/show") || (partes.Count() == 1 && partes[0].ToLower() is "/start"))
         {
             command = partes[0];
-        }
-        else
-        {
-
         }
 
         if (command.ToLower() == "/menu" || command.ToLower() == "/start")
