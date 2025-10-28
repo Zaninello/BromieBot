@@ -19,6 +19,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppSettings\AppSettings.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 

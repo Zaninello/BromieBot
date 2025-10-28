@@ -10,16 +10,32 @@ using Repository;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-
+using static AppSettings.AppSettings;
 namespace BromieBot;
 
 public static class Program
 {
     static async Task Main(string[] args)
     {
-        var bot = new TelegramBotClient("8385370346:AAEjOGnEk0yJtJ_l4RNtrZtDaQ5BfNYdl1g");
+        DbConn = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        TgConn = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
+        
+        if (DbConn is null)
+        {
+            Console.WriteLine("The connection string is empty");
+            return;
+        }
+        if (TgConn is null)
+        {
+            Console.WriteLine("The telegram token is empty");
+            return;
+        }
+
+        var bot = new TelegramBotClient(TgConn);
         bot.StartReceiving(ProcessUpdate, ProcessError);
+        Console.WriteLine("bot running...");
         Console.ReadLine();
+        await Task.Delay(-1);
     }
     public static async Task ProcessUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
@@ -37,12 +53,9 @@ public static class Program
         string[] partes = text.Split(" ");
 
         var des = partes.Skip(2);
-        
-        var command = "";
-        
-        var header = "";
-        
-        string description = string.Empty;
+
+        string command, header, description;
+        command = header = description = string.Empty;
 
         if (partes.Count() >= 3)
         {
@@ -59,21 +72,17 @@ public static class Program
         {
             command = partes[0];
         }
-        else
-        {
-
-        }
 
         if (command.ToLower() == "/menu" || command.ToLower() == "/start")
         {
             await bot.SendMessage(
                 chatId,
                 "<b><i>MENU</i></b>" +
-                "\n/add <i>Task_Name</i>   <i>Task description</i>" +
-                "\n/delete <i>Task_Name</i>" +
-                "\n/edit <i>Task_Name</i>   <i>New description</i>\n" +
+                "\n/add <i>&lt;Task_Name&gt; &lt;Task description&gt;</i>" +
+                "\n/delete <i>&lt;Task_Name&gt;</i>" +
+                "\n/edit <i>&lt;Task_Name&gt;</i> <i>New description</i>\n" +
                 "/show - show tasks\n" +
-                "/complete <i>Task_Name</i>  - Complete tasks",
+                "/complete <i>&lt;Task_Name&gt;</i> - Complete tasks",
                 ParseMode.Html
             );
             return;
