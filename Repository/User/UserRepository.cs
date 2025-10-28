@@ -15,6 +15,8 @@ public class UserRepository : IUserRepository
         _conexao.SaveChanges();
     }
 
-    public bool SearchUser(long chatId) =>
-        _conexao.Users.Any(u => u.ChatId == chatId);
+    public bool SearchUser(long chatId)
+    {
+        return _conexao.Users.Any(u => u.ChatId == chatId);
+    }
 }

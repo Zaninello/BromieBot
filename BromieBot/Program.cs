@@ -43,7 +43,7 @@ public static class Program
         var header = "";
         
         string description = string.Empty;
-        
+
         if (partes.Count() >= 3)
         {
             command = partes[0];
@@ -55,13 +55,13 @@ public static class Program
             command = partes[0];
             header = partes[1];
         }
-        else if (partes.Count() == 1)
+        else if((partes.Count() == 1 && partes[0].ToLower() is "/menu") || (partes.Count() == 1 && partes[0].ToLower() is "/show") || (partes.Count() == 1 && partes[0].ToLower() is "/start"))
         {
             command = partes[0];
         }
         else
         {
-            await bot.SendMessage(chatId, "Command error, type /menu to view formatting options");
+
         }
 
         if (command.ToLower() == "/menu" || command.ToLower() == "/start")
@@ -101,7 +101,7 @@ public static class Program
 
                 await bot.SendMessage(
                     chatId,
-                    $"Task {command[1]} successfully added!"
+                    $"Task {header} successfully added!"
                 );
                 break;
 
@@ -173,7 +173,7 @@ public static class Program
             default:
                 await bot.SendMessage(
                     chatId, 
-                    $"command {command} not cataloged!"
+                    $"command {command} not cataloged! Type /menu to view formatting options"
                 );
                 break;
         }
