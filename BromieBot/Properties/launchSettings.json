@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BromieBot": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

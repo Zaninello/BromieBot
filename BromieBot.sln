@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
@@ -14,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{EC80235A-E994-466C-B082-7FEE4D4760C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{E5987D2D-8C10-4D39-A427-D5C0F115F9DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSettings", "AppSettings\AppSettings.csproj", "{35843ED0-671C-4575-AD2A-25C7CC54404F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +98,18 @@ Global
 		{E5987D2D-8C10-4D39-A427-D5C0F115F9DE}.Release|x64.Build.0 = Release|Any CPU
 		{E5987D2D-8C10-4D39-A427-D5C0F115F9DE}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5987D2D-8C10-4D39-A427-D5C0F115F9DE}.Release|x86.Build.0 = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|x64.Build.0 = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Debug|x86.Build.0 = Debug|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|x64.ActiveCfg = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|x64.Build.0 = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|x86.ActiveCfg = Release|Any CPU
+		{35843ED0-671C-4575-AD2A-25C7CC54404F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
