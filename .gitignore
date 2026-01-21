@@ -1,16 +1,11 @@
-## Visual Studio e C# Ignorados
 
-# Pastas de Build (bin e obj)
 [Bb]in/
 [Oo]bj/
-
-# Arquivos de usuário e cache do Visual Studio
 *.suo
 *.user
 *.log
 *.pdb
 *.dll
-
-# Configurações específicas de cada usuário do Visual Studio
 .vs/
+/.idea
 *.env
