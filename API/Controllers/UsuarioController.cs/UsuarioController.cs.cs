@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace BromieBot.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UsuarioController(ServiceUserApi service) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult> VerificaUsuario()
+        public async Task<ActionResult> VerificaUsuario([FromQuery] User usuario)
         {
-         return default;   
+            service.ServiceVerifica(usuario);
+         return default;
 
         } 
     }

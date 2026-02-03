@@ -5,5 +5,5 @@ namespace BromieBot.API;
 
 public interface IUsuario
 {
-    public Task<ActionResult>VerificarUsuario(User user);
+    public bool VerificarUsuario(User user);
 }
