@@ -24,22 +24,22 @@ public partial class BotService
     private static bool UserCanAdd(string[] entireMessage)
     {
         return entireMessage[0] == "/add" &&
-               entireMessage.Length >= (int)MessageRules.MinimumPartsNecessaryToAdd;
+               entireMessage.Length >= MessageRules.MinPartsToAdd;
     }
     private static bool UserCanEdit(string[] entireMessage)
     {
         return entireMessage[0] == "/edit" &&
-               entireMessage.Length == (int)MessageRules.TotalPartsNecessaryToEdit;
+               entireMessage.Length == MessageRules.PartsToEdit;
     }
     private static bool UserCanDelete(string[] entireMessage)
     {
         return entireMessage[0] == "/delete" &&
-               entireMessage.Length == (int)MessageRules.TotalPartsNecessaryToDeleteOrComplete;
+               entireMessage.Length == MessageRules.PartsToDelete;
     }
     private static bool UserCanCompleteTodo(string[] entireMessage)
     {
         return entireMessage[0] == "/complete" &&
-               entireMessage.Length == (int)MessageRules.TotalPartsNecessaryToDeleteOrComplete; 
+               entireMessage.Length == MessageRules.PartsToComplete; 
     }
     private static async Task VerifyUser(long userChatId, string userName)
     {

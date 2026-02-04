@@ -1,8 +1,9 @@
 namespace Bot.Rules;
 
-public enum MessageRules
+public class MessageRules
 {
-    TotalPartsNecessaryToDeleteOrComplete = 2,
-    TotalPartsNecessaryToEdit = 3,
-    MinimumPartsNecessaryToAdd = 3
+    public const byte PartsToComplete = 2;
+    public const byte PartsToDelete = 2;
+    public const byte PartsToEdit = 3;
+    public const byte MinPartsToAdd = 3;
 }
