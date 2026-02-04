@@ -2,7 +2,7 @@ namespace Bot;
 
 public partial class BotService
 {
-    private static ITelegramBotClient bot;
+    private ITelegramBotClient bot;
     public async Task Start(string telegramToken)
     {
         bot = new TelegramBotClient(telegramToken);
@@ -20,7 +20,7 @@ public partial class BotService
 
         await VerifyUser(chatId, name);
 
-        await Menu(bot, chatId, text);
+        await Menu(chatId, text);
     }
     private static async Task ProcessError(ITelegramBotClient bot, Exception ex, CancellationToken ct) { }
     private static (long, string, string) GetUserInfos(Update update)
