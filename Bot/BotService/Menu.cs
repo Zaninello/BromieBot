@@ -5,7 +5,7 @@ namespace Bot;
 
 public partial class BotService
 {
-    public static async Task Menu(ITelegramBotClient _bot, long chatId, string text)
+    public static async Task Menu(long chatId, string text)
     {
         var allMessageParts = text.Split(" ");
         var command = allMessageParts[0];
@@ -86,7 +86,7 @@ public partial class BotService
             
             if (todo is null)
             {
-                await _bot.SendMessage(
+                await bot.SendMessage(
                     chatId, 
                     $"Task: {todoName} does not exist."
                 );
@@ -95,7 +95,7 @@ public partial class BotService
 
             await _todoRepository.EditTodo(todo, newTodoDescription);
             
-            await _bot.SendMessage(
+            await bot.SendMessage(
                 chatId, 
                 $"Task {todoName} successfully changed!"
             );
@@ -111,7 +111,7 @@ public partial class BotService
 
             if (todo is null)
             {
-                await _bot.SendMessage(
+                await bot.SendMessage(
                     chatId, 
                     $"Task: {todoName} does not exist."
                 );
@@ -120,7 +120,7 @@ public partial class BotService
 
             await _todoRepository.CompleteTodo(todo);
             
-            await _bot.SendMessage(
+            await bot.SendMessage(
                 chatId,
                 $"Task {todoName} successfully completed!"
             );
@@ -138,7 +138,7 @@ public partial class BotService
             
             if (todo is null)
             {
-                await _bot.SendMessage(
+                await bot.SendMessage(
                     chatId, 
                     $"Task: {nameTodoToDelete} does not exist."
                 );
@@ -147,13 +147,15 @@ public partial class BotService
 
             await _todoRepository.RemoveTodo(todo);
             
-            await _bot.SendMessage(
+            await bot.SendMessage(
                 chatId, 
                 $"Task {nameTodoToDelete} successfully remove!"
             );
+
+            return;
         }
         
-        await _bot.SendMessage(
+        await bot.SendMessage(
             chatId, 
             $"command {command} not cataloged! Type /menu to view formatting options"
         );
