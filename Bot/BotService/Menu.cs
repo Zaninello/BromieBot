@@ -151,6 +151,8 @@ public partial class BotService
                 chatId, 
                 $"Task {nameTodoToDelete} successfully remove!"
             );
+
+            return;
         }
         
         await _bot.SendMessage(
