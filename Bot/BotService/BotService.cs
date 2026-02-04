@@ -2,7 +2,7 @@ namespace Bot;
 
 public partial class BotService
 {
-    private ITelegramBotClient bot;
+    private static ITelegramBotClient bot;
     public async Task Start(string telegramToken)
     {
         bot = new TelegramBotClient(telegramToken);
