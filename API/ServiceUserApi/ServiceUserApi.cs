@@ -11,10 +11,10 @@ public class ServiceUserApi
     }
 
     private RepositoryUserApi _repo {get;}
-    public bool ServiceVerifica(User user)
+    public bool ServiceVerifica(long chatId)
     {
-        // implementar logica e retorno.
-        _repo.VerificarUsuario(user);
+        if(chatId is )
+        _repo.VerificarUsuario(chatId);
         return true;
     }
 }

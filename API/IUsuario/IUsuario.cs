@@ -5,5 +5,5 @@ namespace BromieBot.API;
 
 public interface IUsuario
 {
-    public bool VerificarUsuario(User user);
+    public bool VerificarUsuario(long chatId);
 }

@@ -8,10 +8,11 @@ namespace BromieBot.API
     [ApiController]
     public class UsuarioController(ServiceUserApi service) : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult> VerificaUsuario([FromQuery] User usuario)
+        [HttpPost]
+        public async Task<ActionResult> VerificaUsuario([FromQuery] long chatId)
         {
-            service.ServiceVerifica(usuario);
+
+            service.ServiceVerifica(chatId);
          return default;
 
         } 

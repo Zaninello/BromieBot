@@ -1,12 +1,12 @@
 ﻿using Models;
+using DataBase; 
 
 namespace BromieBot.API;
 
-public class RepositoryUserApi : IUsuario
+public class RepositoryUserApi(TelegramBotContext context)
 {
-    public  bool VerificarUsuario(User user)
+    public bool VerificarUsuario(long chatId)
     {
-        return true;
-
+        return context.Users.Any(x => x.ChatId == chatId);
     }
 }
