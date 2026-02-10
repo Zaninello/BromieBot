@@ -1,4 +1,4 @@
-﻿namespace Bot.Repository.Todo;
+﻿namespace Bot.Repository;
 
 public interface ITodoRepository
 {

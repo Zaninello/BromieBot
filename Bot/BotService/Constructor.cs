@@ -1,5 +1,5 @@
 using Bot.Data;
-using Bot.Repository.Todo;
+using Bot.Repository;
 
 namespace Bot;
 

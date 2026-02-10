@@ -1,7 +1,6 @@
 ﻿using Bot;
 using Bot.Data;
-using Bot.Repository.Todo;
-using Bot.Repository.User;
+using Bot.Repository;
 
 var todoRepository = new TodoRepository();
 var userRepository = new UserRepository();
@@ -10,5 +9,5 @@ var botService = new BotService(
     userService, 
     todoRepository
 );
-var telegramToken = "";
+var telegramToken = "7663425286:AAGMZVVFJ86KFGYVrbd21Jc7GjTSRfhKYuw";
 await botService.Start(telegramToken);
