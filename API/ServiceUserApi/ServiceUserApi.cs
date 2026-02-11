@@ -11,10 +11,13 @@ public class ServiceUserApi
     }
 
     private RepositoryUserApi _repo {get;}
-    public bool ServiceVerifica(long chatId)
+    public async Task<bool> AdicionarUsuario(User usuario)
     {
-        if(chatId is )
-        _repo.VerificarUsuario(chatId);
+        var result = await _repo.VerificarUsuario(usuario.ChatId);
+        if(result is false)
+        {
+            await _repo.AdicionarUsuario(usuario);
+        }
         return true;
     }
 }
