@@ -11,10 +11,20 @@ public class ServiceUserApi
     }
 
     private RepositoryUserApi _repo {get;}
-    public bool ServiceVerifica(User user)
+    public async Task<bool> AdicionarUsuario(User usuario)
     {
-        // implementar logica e retorno.
-        _repo.VerificarUsuario(user);
-        return true;
+        try
+        {
+            var result = await _repo.VerificarUsuario(usuario.ChatId);
+            if(result is false)
+            {
+                await _repo.AdicionarUsuario(usuario);
+            }
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
     }
 }

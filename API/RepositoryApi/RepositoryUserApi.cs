@@ -1,12 +1,19 @@
 ﻿using Models;
+using DataBase;
+using Microsoft.EntityFrameworkCore;
 
 namespace BromieBot.API;
 
-public class RepositoryUserApi : IUsuario
+public class RepositoryUserApi(TelegramBotContext context)
 {
-    public  bool VerificarUsuario(User user)
+    public async Task<bool> VerificarUsuario(long chatId)
     {
-        return true;
+        return await context.Users.AnyAsync(x => x.ChatId == chatId);
+    }
 
+    public async Task AdicionarUsuario(User usuario)
+    {
+        await context.AddAsync(usuario);
+        await context.SaveChangesAsync();
     }
 }

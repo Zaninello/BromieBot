@@ -1,7 +1,9 @@
-﻿namespace Bot.Repository.User;
+﻿using Models;
+
+namespace Bot.Repository;
 
 public interface IUserRepository
 {
-    Task AddUser(Models.User user);
+    Task<bool> AddUser(User user);
     Task<bool> SearchUser(long chatId);
 }

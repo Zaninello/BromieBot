@@ -1,7 +1,5 @@
-﻿using Bot.Repository.User;
+﻿using Bot.Repository;
 using Models;
-using User = Models.User;
-
 namespace Bot.Data;
 
 
