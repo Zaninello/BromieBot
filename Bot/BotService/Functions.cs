@@ -43,9 +43,7 @@ public partial class BotService
     }
     private static async Task VerifyUser(long userChatId, string userName)
     {
-        var userExists = await _userService.VerifyUser(userChatId);
-        if (userExists is false)
-            await _userService.AddUser(userChatId, userName);
+        await _userService.VerifyUser(userChatId, userName);
     }
 
 }

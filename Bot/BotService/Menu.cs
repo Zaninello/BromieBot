@@ -23,7 +23,7 @@ public partial class BotService
                 "/complete <i>&lt;Task_Name&gt;</i> - Complete tasks",
                 ParseMode.Html
             );
-            
+
             return;
         }
 

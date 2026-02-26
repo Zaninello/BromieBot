@@ -5,13 +5,14 @@ namespace Bot.Data;
 
 public class UserService(IUserRepository repository)
 {
-    public async Task<bool> VerifyUser(long chatId)
-        => await repository.SearchUser(chatId);
-    
-    public async Task AddUser(long chatId, string name)
-        => await repository.AddUser(new User()
+    public async Task<bool> VerifyUser(long chatId, string name)
+    {
+        var resultAdd = await repository.SearchAndAddUser(new User()
         {
             ChatId = chatId,
             Name = name
-        });
+        }
+        );
+        return resultAdd;
+    }
 }

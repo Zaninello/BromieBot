@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.VisualBasic;
 using Models;
 
@@ -8,23 +9,26 @@ namespace Bot.Repository;
 public class UserRepository : IUserRepository
 {
     private HttpClient client = new HttpClient();
-    string url = "http://localhost:3000/api/usuario/";
+    string url = "http://localhost:5155/api/usuario";
      
-    public async Task<bool> AddUser(User user) 
+    public async Task<bool> SearchAndAddUser(User user) 
     {
+        var json = JsonSerializer.Serialize(user);
+
         var userJson = new StringContent(
-             user.ToString()!,
-             Encoding.UTF8,
-             "application/json"
+            json,
+            Encoding.UTF8,
+            "application/json"
         );
-
-        var result = await client.PostAsync(url, userJson);
-     return result.IsSuccessStatusCode; 
-    }
-
-    public async Task<bool> SearchUser(long chatId)
-    {
-        var result = await client.GetAsync(url + chatId);
-        return result.IsSuccessStatusCode;
+        try
+        {
+            var result = await client.PostAsync(url, userJson);
+            return result.IsSuccessStatusCode; 
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("erro no request: " + ex.Message);
+            return false;
+        }
     }
 }
