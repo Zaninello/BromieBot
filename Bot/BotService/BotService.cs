@@ -15,6 +15,7 @@ public partial class BotService
         Console.WriteLine("bot running...");
         await Task.Delay(-1);
     }
+    
     private static async Task ProcessUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
         if (await VerifyMessage(update) is false) return;

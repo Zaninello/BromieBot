@@ -24,6 +24,7 @@ public class ServiceUserApi
         }
         catch(Exception ex)
         {
+            Console.WriteLine(ex.Message);
             return false;
         }
     }
