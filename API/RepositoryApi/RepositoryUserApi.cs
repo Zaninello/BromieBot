@@ -13,7 +13,7 @@ public class RepositoryUserApi(TelegramBotContext context)
 
     public async Task AdicionarUsuario(User usuario)
     {
-        await context.AddAsync(usuario);
+        await context.Users.AddAsync(usuario);
         await context.SaveChangesAsync();
     }
 }
