@@ -20,5 +20,18 @@ namespace BromieBot.API
             }
             return BadRequest();
         }
+
+        [HttpGet]
+        public async Task<ActionResult> VerifyTodo([FromBody] Todo todo)
+        {
+            var result = await service.VerifyTodo(todo);
+
+            if(result == true)
+            {
+                return Ok();
+            }
+            return BadRequest();
+
+        }
     }
 }
