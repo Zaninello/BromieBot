@@ -11,4 +11,9 @@ public class RepositoryTodoApi(TelegramBotContext context)
         await context.Todos.AddAsync(todo);
         await context.SaveChangesAsync();
     }
+
+    public async Task<bool> VerifyTodo(Todo todo)
+    {
+        return await context.Todos.AnyAsync(x => x.Header == todo.Header);
+    }
 }
