@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
 {
     private HttpClient client = new HttpClient();
     string url = "http://localhost:5155/api/usuario";
-     
+    
     public async Task<bool> SearchAndAddUser(User user) 
     {
         var json = JsonSerializer.Serialize(user);
