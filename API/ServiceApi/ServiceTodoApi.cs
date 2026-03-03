@@ -4,7 +4,7 @@ namespace API;
 
 public class ServiceTodoApi
 {
-    ServiceTodoApi(RepositoryTodoApi repo)
+    public ServiceTodoApi(RepositoryTodoApi repo)
     {
         _repo = repo;
     }
@@ -20,7 +20,7 @@ public class ServiceTodoApi
         }
         catch(Exception ex)
         {
-            Console.WriteLine(ex);
+            Console.WriteLine(ex.Message);
                 return false;
         }
     }
