@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using System.Security.Cryptography.X509Certificates;
+using Models;
 
 namespace API;
 
@@ -23,5 +24,27 @@ public class ServiceTodoApi
             Console.WriteLine(ex.Message);
                 return false;
         }
+    }
+
+    public async Task<bool> VerifyTodo(Todo todo)
+    {
+        try
+        {
+            var result = await _repo.VerifyTodo(todo);
+
+            if(result == true)
+            {
+                return false;
+            }
+            
+            return true; 
+
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+                return false;
+        }
+
     }
 }
