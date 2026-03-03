@@ -30,15 +30,7 @@ public class ServiceTodoApi
     {
         try
         {
-            var result = await _repo.VerifyTodo(todo);
-
-            if(result == true)
-            {
-                return false;
-            }
-            
-            return true; 
-
+            return await _repo.VerifyTodo(todo);
         }
         catch(Exception ex)
         {
