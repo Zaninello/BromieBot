@@ -52,16 +52,17 @@ public partial class BotService
 
         if (UserCanAdd(allMessageParts))
         {
+
             var todoName = allMessageParts[1];
             var todoDescription = allMessageParts[2];
             var todoExists = await _todoRepository
                 .SearchTodoByName(chatId, todoName);
             
-            if (todoExists is null)
+            if (todoExists is not null)
             {
                 await bot.SendMessage(
                     chatId, 
-                    $"Task: {todoName} does not exist."
+                    $"Task: {todoName} exist."
                 );
                 return;
             }
