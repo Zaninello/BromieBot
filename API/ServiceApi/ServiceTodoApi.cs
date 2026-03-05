@@ -26,16 +26,20 @@ public class ServiceTodoApi
         }
     }
 
-    public async Task<bool> VerifyTodo(Todo todo)
+    public async Task<Todo?> VerifyTodo(long chatId, string nameTodo)
     {
         try
         {
-            return await _repo.VerifyTodo(todo);
+            var result = await _repo.VerifyTodo(chatId, nameTodo);
+            if(result is not null)
+               return result;
+            return null; 
+
         }
         catch(Exception ex)
         {
             Console.WriteLine(ex.Message);
-                return false;
+                return null;
         }
 
     }
