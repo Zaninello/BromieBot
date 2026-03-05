@@ -10,7 +10,15 @@ public class TodoRepository : ITodoRepository
     
     public async Task<Models.Todo?> SearchTodoByName(long chatId, string nameTodo)
     {
-        throw new NotImplementedException();
+        var apiResult = await _client.GetAsync($"{url}/?nameTodo={nameTodo}&chatId={chatId}");
+        if(apiResult.IsSuccessStatusCode)
+        {
+            var objeto = await apiResult.Content.ReadAsStringAsync();
+            
+            var todo = JsonSerializer.Deserialize<Models.Todo>(objeto);
+              return todo;
+        }
+        return null;
     }
 
     public async Task<IEnumerable<Models.Todo>> GetAllTodos(long chatId)
