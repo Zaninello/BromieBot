@@ -22,15 +22,15 @@ namespace BromieBot.API
         }
 
         [HttpGet]
-        public async Task<ActionResult> VerifyTodo([FromBody] Todo todo)
+        public async Task<ActionResult> VerifyTodo([FromQuery]long chatId, [FromQuery]string nameTodo)
         {
-            var result = await service.VerifyTodo(todo);
+            var result = await service.VerifyTodo(chatId, nameTodo);
 
-            if(result == true)
+            if(result is not null)
             {
-                return Ok();
+                return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(); 
 
         }
     }
