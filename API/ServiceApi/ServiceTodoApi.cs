@@ -30,16 +30,12 @@ public class ServiceTodoApi
     {
         try
         {
-            var result = await _repo.VerifyTodo(chatId, nameTodo);
-            if(result is not null)
-               return result;
-            return null; 
-
+            return await _repo.VerifyTodo(chatId, nameTodo);
         }
         catch(Exception ex)
         {
             Console.WriteLine(ex.Message);
-                return null;
+            return null;
         }
     }
 
