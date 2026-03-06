@@ -86,21 +86,13 @@ public partial class BotService
             var todo = await _todoRepository
                 .SearchTodoByName(chatId, todoName);
             
-            if (todo is null)
-            {
-                await bot.SendMessage(
-                    chatId, 
-                    $"Task: {todoName} does not exist."
-                );
-                return;
-            }
+            var result = await _todoRepository.EditTodo(chatId, todoName, newTodoDescription);
 
-            await _todoRepository.EditTodo(todo, newTodoDescription);
-            
-            await bot.SendMessage(
-                chatId, 
-                $"Task {todoName} successfully changed!"
+                await bot.SendMessage(
+                chatId,
+                result 
             );
+            
 
             return;
         }
