@@ -22,7 +22,18 @@ public class RepositoryTodoApi(TelegramBotContext context)
         var todo = await context
             .Todos
             .FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
+
         context.Todos.Remove(todo!);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task EditTodo(long chatId, string nameTodo, string descriptionNew)
+    {
+        var todo = await context
+            .Todos
+            .FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
+
+        //todo!.Description = descriptionNew;
         await context.SaveChangesAsync();
     }
 }
