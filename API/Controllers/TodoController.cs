@@ -34,7 +34,10 @@ namespace BromieBot.API
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteTodo([FromQuery]long chatId, [FromQuery]string nameTodo)
+        public async Task<ActionResult> DeleteTodo(
+            [FromQuery] long chatId, 
+            [FromQuery] string nameTodo
+        )
         {
             var result = await service.DeleteTodo(chatId, nameTodo);
 
