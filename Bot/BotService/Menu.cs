@@ -134,20 +134,13 @@ public partial class BotService
         {
             var nameTodoToDelete = allMessageParts[1];
             
-            var todo = await _todoRepository.SearchTodoByName(
-                chatId, nameTodoToDelete
-            );
-            
-            if (todo is null)
+            var result = await _todoRepository.RemoveTodo(chatId, nameTodoToDelete);
+
+            if(result is false)
             {
-                await bot.SendMessage(
-                    chatId, 
-                    $"Task: {nameTodoToDelete} does not exist."
-                );
+                await bot.SendMessage(chatId, $"Task: {nameTodoToDelete} error on the delite process!");
                 return;
             }
-
-            await _todoRepository.RemoveTodo(todo);
             
             await bot.SendMessage(
                 chatId, 
