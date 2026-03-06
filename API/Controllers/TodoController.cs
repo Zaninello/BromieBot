@@ -21,7 +21,7 @@ namespace BromieBot.API
             return BadRequest();
         }
 
-        [HttpGet]
+        [HttpGet("verify")]
         public async Task<ActionResult> VerifyTodo(
             [FromQuery] long chatId, 
             [FromQuery] string nameTodo
@@ -49,6 +49,20 @@ namespace BromieBot.API
                 return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpGet("edit")]
+        public async Task<ActionResult> EditTodo(
+            [FromQuery] long chatId,
+            [FromQuery] string nameTodo,
+            [FromQuery] string newDescription
+        )
+        {
+            var result = await service.EditTodo(chatId, nameTodo, newDescription);
+            if(result)
+                return Ok($"Todo: {nameTodo} successfully changed!");
+
+            return BadRequest($"Error on the edit process!");
         }
     }
 }
