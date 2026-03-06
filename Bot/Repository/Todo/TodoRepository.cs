@@ -48,9 +48,10 @@ public class TodoRepository : ITodoRepository
         }
     }
 
-    public async Task RemoveTodo(Models.Todo todo)
+    public async Task<bool> RemoveTodo(long chatId, string nameTodo)
     {
-        throw new NotImplementedException();
+        var resultApi = await _client.DeleteAsync($"{url}?chatId={chatId}&nameTodo={nameTodo}");
+        return resultApi.IsSuccessStatusCode;
     }
 
     public async Task EditTodo(Models.Todo todo, string newDescription)
