@@ -17,12 +17,12 @@ public class ServiceTodoApi
         try
         {
             await _repo.AddTodo(todo);
-                return true;
+            return true;
         }
         catch(Exception ex)
         {
             Console.WriteLine(ex.Message);
-                return false;
+            return false;
         }
     }
 
@@ -41,6 +41,17 @@ public class ServiceTodoApi
             Console.WriteLine(ex.Message);
                 return null;
         }
+    }
 
+    public async Task<bool> DeleteTodo(long chatId, string nameTodo)
+    {
+        var resultTodo = await VerifyTodo(chatId, nameTodo);
+
+        if(resultTodo is null)
+        {
+            return false;
+        }
+        await _repo.DeleteTodo(chatId, nameTodo);
+        return true;
     }
 }
