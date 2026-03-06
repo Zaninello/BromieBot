@@ -31,7 +31,18 @@ namespace BromieBot.API
                 return Ok(result);
             }
             return BadRequest(); 
+        }
 
+        [HttpDelete]
+        public async Task<ActionResult> DeleteTodo([FromQuery]long chatId, [FromQuery]string nameTodo)
+        {
+            var result = await service.DeleteTodo(chatId, nameTodo);
+
+            if(result is true)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }
