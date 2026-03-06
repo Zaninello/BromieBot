@@ -1,10 +1,24 @@
-﻿namespace Bot.Repository;
+﻿using System.Text.Json;
+
+namespace Bot.Repository;
 
 public class TodoRepository : ITodoRepository
 {
+    private HttpClient _client = new HttpClient();
+
+    string url = "http://localhost:5155/api/Todo";
+    
     public async Task<Models.Todo?> SearchTodoByName(long chatId, string nameTodo)
     {
-        throw new NotImplementedException();
+        var apiResult = await _client.GetAsync($"{url}/?nameTodo={nameTodo}&chatId={chatId}");
+        if(apiResult.IsSuccessStatusCode)
+        {
+            var objeto = await apiResult.Content.ReadAsStringAsync();
+            
+            var todo = JsonSerializer.Deserialize<Models.Todo>(objeto);
+              return todo;
+        }
+        return null;
     }
 
     public async Task<IEnumerable<Models.Todo>> GetAllTodos(long chatId)
@@ -12,14 +26,32 @@ public class TodoRepository : ITodoRepository
         throw new NotImplementedException();
     }
 
-    public async Task AddTodo(Models.Todo todo)
+    public async Task<bool> AddTodo(Models.Todo todo)
     {
-        throw new NotImplementedException();
+        var json = JsonSerializer.Serialize(todo);
+
+        var todoJson = new StringContent(
+            json,
+            Encoding.UTF8,
+            "application/json"
+        );
+
+        try
+        {
+            var result = await _client.PostAsync(url, todoJson);
+                return result.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("erro no request para envio do Todo para a Api: " + ex.Message);
+            return false;
+        }
     }
 
-    public async Task RemoveTodo(Models.Todo todo)
+    public async Task<bool> RemoveTodo(long chatId, string nameTodo)
     {
-        throw new NotImplementedException();
+        var resultApi = await _client.DeleteAsync($"{url}?chatId={chatId}&nameTodo={nameTodo}");
+        return resultApi.IsSuccessStatusCode;
     }
 
     public async Task EditTodo(Models.Todo todo, string newDescription)
