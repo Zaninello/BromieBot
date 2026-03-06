@@ -50,4 +50,13 @@ public class ServiceTodoApi
         await _repo.DeleteTodo(chatId, nameTodo);
         return true;
     }
+
+    public async Task<bool> EditTodo(long chatId, string nameTodo, string newDescription)
+    {
+        if(await VerifyTodo(chatId, nameTodo) is null)
+            return false;        
+
+        await _repo.EditTodo(chatId, nameTodo, newDescription);
+        return true;
+    }
 }
