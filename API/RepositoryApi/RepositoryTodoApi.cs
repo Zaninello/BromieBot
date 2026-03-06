@@ -19,7 +19,10 @@ public class RepositoryTodoApi(TelegramBotContext context)
 
     public async Task DeleteTodo(long chatId, string nameTodo)
     {
-        await context.Todos.Where(x => x.UserId == chatId && x.Header == nameTodo).ExecuteDeleteAsync();
+        var todo = await context
+            .Todos
+            .FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
+        context.Todos.Remove(todo!);
         await context.SaveChangesAsync();
     }
 }
