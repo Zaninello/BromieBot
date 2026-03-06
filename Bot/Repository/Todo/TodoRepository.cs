@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 
 namespace Bot.Repository;
 
@@ -54,9 +55,18 @@ public class TodoRepository : ITodoRepository
         return resultApi.IsSuccessStatusCode;
     }
 
-    public async Task EditTodo(Models.Todo todo, string newDescription)
+    public async Task<string> EditTodo(long chatId, string nameTodo, string newDescription)
     {
-        throw new NotImplementedException();
+        var query = "{0}/edit?chatId={1}&nameTodo={2}&newDescription={3}";
+        var fullQuery = string.Format(
+            query,
+            url, chatId, nameTodo, newDescription 
+        );
+
+        var resultApi = await _client.GetAsync(fullQuery);
+        var returnApi = await resultApi.Content.ReadAsStringAsync();
+
+        return returnApi;
     }
 
     public async Task CompleteTodo(Models.Todo todo)
