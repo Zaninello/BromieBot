@@ -55,25 +55,13 @@ public partial class BotService
 
             var todoName = allMessageParts[1];
             var todoDescription = allMessageParts[2];
-            var todoExists = await _todoRepository
-                .SearchTodoByName(chatId, todoName);
-            
-            if (todoExists is not null)
-            {
-                await bot.SendMessage(
-                    chatId, 
-                    $"Task: {todoName} exist."
-                );
-                return;
-            }
-
             var todo = new Todo(chatId, todoName, todoDescription);
             
-            await _todoRepository.AddTodo(todo);
-            
+            var resultApi = await _todoRepository.AddTodo(todo);
+
             await bot.SendMessage(
                 chatId,
-                $"Task {todoName} successfully added!"
+                resultApi
             );
 
             return;
@@ -83,36 +71,21 @@ public partial class BotService
         {
             var todoName = allMessageParts[1];
             var newTodoDescription = allMessageParts[2];
-            var todo = await _todoRepository
-                .SearchTodoByName(chatId, todoName);
             
-            var result = await _todoRepository.EditTodo(chatId, todoName, newTodoDescription);
+            var resultApi = await _todoRepository.EditTodo(chatId, todoName, newTodoDescription);
 
                 await bot.SendMessage(
                 chatId,
-                result 
+                resultApi 
             );
-            
-
             return;
         }
         
         if (UserCanCompleteTodo(allMessageParts))
         {
             var todoName = allMessageParts[1];
-            var todo = await _todoRepository
-                .SearchTodoByName(chatId, todoName);
-
-            if (todo is null)
-            {
-                await bot.SendMessage(
-                    chatId, 
-                    $"Task: {todoName} does not exist."
-                );
-                return;
-            }
-
-            await _todoRepository.CompleteTodo(todo);
+           
+           // await _todoRepository.CompleteTodo(todo);
             
             await bot.SendMessage(
                 chatId,
@@ -126,22 +99,15 @@ public partial class BotService
         {
             var nameTodoToDelete = allMessageParts[1];
             
-            var result = await _todoRepository.RemoveTodo(chatId, nameTodoToDelete);
+            var resultApi = await _todoRepository.RemoveTodo(chatId, nameTodoToDelete);
 
-            if(result is false)
-            {
-                await bot.SendMessage(chatId, $"Task: {nameTodoToDelete} error on the delite process!");
-                return;
-            }
-            
             await bot.SendMessage(
-                chatId, 
-                $"Task {nameTodoToDelete} successfully remove!"
+                chatId,
+                resultApi 
             );
-
             return;
         }
-        
+
         await bot.SendMessage(
             chatId, 
             $"command {command} not cataloged! Type /menu to view formatting options"
