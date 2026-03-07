@@ -9,25 +9,12 @@ public class TodoRepository : ITodoRepository
 
     string url = "http://localhost:5155/api/Todo";
     
-    public async Task<Models.Todo?> SearchTodoByName(long chatId, string nameTodo)
-    {
-        var apiResult = await _client.GetAsync($"{url}/?nameTodo={nameTodo}&chatId={chatId}");
-        if(apiResult.IsSuccessStatusCode)
-        {
-            var objeto = await apiResult.Content.ReadAsStringAsync();
-            
-            var todo = JsonSerializer.Deserialize<Models.Todo>(objeto);
-              return todo;
-        }
-        return null;
-    }
-
     public async Task<IEnumerable<Models.Todo>> GetAllTodos(long chatId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> AddTodo(Models.Todo todo)
+    public async Task<string> AddTodo(Models.Todo todo)
     {
         var json = JsonSerializer.Serialize(todo);
 
@@ -39,20 +26,22 @@ public class TodoRepository : ITodoRepository
 
         try
         {
-            var result = await _client.PostAsync(url, todoJson);
-                return result.IsSuccessStatusCode;
+            var resultApi = await _client.PostAsync(url, todoJson);
+            var returnApi = await resultApi.Content.ReadAsStringAsync();
+                return returnApi;
         }
         catch (Exception ex)
         {
             Console.WriteLine("erro no request para envio do Todo para a Api: " + ex.Message);
-            return false;
+            return "Error";
         }
     }
 
-    public async Task<bool> RemoveTodo(long chatId, string nameTodo)
+    public async Task<string> RemoveTodo(long chatId, string nameTodo)
     {
         var resultApi = await _client.DeleteAsync($"{url}?chatId={chatId}&nameTodo={nameTodo}");
-        return resultApi.IsSuccessStatusCode;
+        var returnApi = await resultApi.Content.ReadAsStringAsync();
+        return returnApi;
     }
 
     public async Task<string> EditTodo(long chatId, string nameTodo, string newDescription)
