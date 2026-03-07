@@ -16,6 +16,11 @@ public class ServiceTodoApi
     {
         try
         {
+            var resultVerify = await VerifyTodo(todo.UserId, todo.Header);
+            
+            if(resultVerify is not null)
+                return false;
+            
             await _repo.AddTodo(todo);
             return true;
         }
