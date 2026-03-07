@@ -13,9 +13,7 @@ public class RepositoryTodoApi(TelegramBotContext context)
     }
 
     public async Task<Todo?> VerifyTodo(long chatId, string nameTodo)
-    {
-        return await context.Todos.FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
-    }
+        => await context.Todos.FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
 
     public async Task DeleteTodo(long chatId, string nameTodo)
     {
@@ -33,7 +31,7 @@ public class RepositoryTodoApi(TelegramBotContext context)
             .Todos
             .FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
 
-        //todo!.Description = descriptionNew;
+        todo!.Description = descriptionNew;
         await context.SaveChangesAsync();
     }
 }
