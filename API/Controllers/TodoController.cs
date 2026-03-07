@@ -16,24 +16,9 @@ namespace BromieBot.API
             
             if(result == true)
             {
-                return Ok();
+                return Ok($"Todo: {todo.Header} add successfully!");
             }
-            return BadRequest();
-        }
-
-        [HttpGet("verify")]
-        public async Task<ActionResult> VerifyTodo(
-            [FromQuery] long chatId, 
-            [FromQuery] string nameTodo
-        )
-        {
-            var result = await service.VerifyTodo(chatId, nameTodo);
-
-            if(result is not null)
-            {
-                return Ok(result);
-            }
-            return BadRequest(); 
+            return BadRequest($"Error on the add process, the todo: {todo.Header} exists.");
         }
 
         [HttpDelete]
@@ -46,9 +31,9 @@ namespace BromieBot.API
 
             if(result is true)
             {
-                return Ok();
+                return Ok($"Todo: {nameTodo} successfully delete!");
             }
-            return BadRequest();
+            return BadRequest($"Error on the edit process!");
         }
 
         [HttpGet("edit")]
