@@ -8,10 +8,23 @@ public class TodoRepository : ITodoRepository
     private HttpClient _client = new HttpClient();
 
     string url = "http://localhost:5155/api/Todo";
+
+    JsonSerializerOptions options = new JsonSerializerOptions()
+    { 
+        PropertyNameCaseInsensitive = true
+    };
     
     public async Task<IEnumerable<Models.Todo>> GetAllTodos(long chatId)
     {
-        throw new NotImplementedException();
+        var resultApi = await _client.GetAsync($"{url}/getAll?chatId={chatId}");
+        var returnApi = await resultApi.Content.ReadAsStringAsync();
+
+        if(resultApi.IsSuccessStatusCode)
+        {
+            var list = JsonSerializer.Deserialize<List<Models.Todo>>(returnApi, options);
+            return list;
+        }
+        return new List<Models.Todo>();
     }
 
     public async Task<string> AddTodo(Models.Todo todo)
@@ -28,7 +41,7 @@ public class TodoRepository : ITodoRepository
         {
             var resultApi = await _client.PostAsync(url, todoJson);
             var returnApi = await resultApi.Content.ReadAsStringAsync();
-                return returnApi;
+            return returnApi;
         }
         catch (Exception ex)
         {
