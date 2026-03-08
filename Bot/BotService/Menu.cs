@@ -31,7 +31,8 @@ public partial class BotService
         {
             var todos = await _todoRepository.GetAllTodos(chatId);
             var listTodos = todos.ToList();
-            if (listTodos.Any() is false)
+
+            if (listTodos is null || listTodos.Count() is <= 0)
             {
                 await bot.SendMessage(chatId, "There are not tasks listed");
                 return;
@@ -56,7 +57,6 @@ public partial class BotService
             var todoName = allMessageParts[1];
             var todoDescription = allMessageParts[2];
             var todo = new Todo(chatId, todoName, todoDescription);
-            
             var resultApi = await _todoRepository.AddTodo(todo);
 
             await bot.SendMessage(
