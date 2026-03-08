@@ -16,24 +16,9 @@ namespace BromieBot.API
             
             if(result == true)
             {
-                return Ok();
+                return Ok($"Todo: {todo.Header} add successfully!");
             }
-            return BadRequest();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> VerifyTodo(
-            [FromQuery] long chatId, 
-            [FromQuery] string nameTodo
-        )
-        {
-            var result = await service.VerifyTodo(chatId, nameTodo);
-
-            if(result is not null)
-            {
-                return Ok(result);
-            }
-            return BadRequest(); 
+            return BadRequest($"Error on the add process, the todo: {todo.Header} exists.");
         }
 
         [HttpDelete]
@@ -46,9 +31,35 @@ namespace BromieBot.API
 
             if(result is true)
             {
-                return Ok();
+                return Ok($"Todo: {nameTodo} successfully delete!");
             }
-            return BadRequest();
+            return BadRequest($"Error on the edit process!");
+        }
+
+        [HttpGet("edit")]
+        public async Task<ActionResult> EditTodo(
+            [FromQuery] long chatId,
+            [FromQuery] string nameTodo,
+            [FromQuery] string newDescription
+        )
+        {
+            var result = await service.EditTodo(chatId, nameTodo, newDescription);
+            if(result)
+                return Ok($"Todo: {nameTodo} successfully changed!");
+
+            return BadRequest($"Error on the edit process!");
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult> GetAll([FromQuery] long chatId)
+        {
+            var listTodo = await service.GetAll(chatId);
+            var resultTodo = listTodo.Count();
+
+            if(resultTodo > 0)
+                return Ok(listTodo);
+            var listEmpty = new List<Todo>();
+            return BadRequest(listEmpty);
         }
     }
 }
