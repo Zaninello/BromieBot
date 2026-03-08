@@ -34,4 +34,10 @@ public class RepositoryTodoApi(TelegramBotContext context)
         todo!.Description = descriptionNew;
         await context.SaveChangesAsync();
     }
+
+    public async Task<List<Todo>> GetAll(long chatId)
+    {
+        var list = context.Todos.Where(x => x.UserId == chatId).ToList();
+        return list;
+    }
 }
