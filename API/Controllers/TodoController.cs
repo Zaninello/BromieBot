@@ -49,5 +49,17 @@ namespace BromieBot.API
 
             return BadRequest($"Error on the edit process!");
         }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult> GetAll([FromQuery] long chatId)
+        {
+            var listTodo = await service.GetAll(chatId);
+            var resultTodo = listTodo.Count();
+
+            if(resultTodo > 0)
+                return Ok(listTodo);
+            var listEmpty = new List<Todo>();
+            return BadRequest(listEmpty);
+        }
     }
 }
