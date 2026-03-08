@@ -64,4 +64,7 @@ public class ServiceTodoApi
         await _repo.EditTodo(chatId, nameTodo, newDescription);
         return true;
     }
+
+    public async Task<List<Todo>> GetAll(long chatId)
+        => await _repo.GetAll(chatId); 
 }
