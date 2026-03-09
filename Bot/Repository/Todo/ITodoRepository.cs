@@ -6,5 +6,5 @@ public interface ITodoRepository
     Task<string> AddTodo(Models.Todo todo);
     Task<string> RemoveTodo(long chatId, string nameTodo);
     Task<string> EditTodo(long chatId, string nameTodo, string newDescription);
-    Task CompleteTodo(Models.Todo todo);
+    Task<string> CompleteTodo(long chatId, string nameTodo);
 }
