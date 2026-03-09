@@ -61,5 +61,19 @@ namespace BromieBot.API
             var listEmpty = new List<Todo>();
             return BadRequest(listEmpty);
         }
+
+        [HttpGet("complete")]
+        public async Task<ActionResult> CompleteTodo(
+            [FromQuery] long chatId,
+            [FromQuery] string nameTodo
+        )
+        {
+            
+            var resultApi = await service.CompleteTodo(chatId, nameTodo);
+
+            if(resultApi is true)
+                return Ok($"Todo: {nameTodo} completed!");
+            return BadRequest("Error in the complete todo");
+        }
     }
 }
