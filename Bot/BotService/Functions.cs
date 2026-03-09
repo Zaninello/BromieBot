@@ -29,7 +29,7 @@ public partial class BotService
     private static bool UserCanEdit(string[] entireMessage)
     {
         return entireMessage[0] == "/edit" &&
-               entireMessage.Length == MessageRules.PartsToEdit;
+               entireMessage.Length >= MessageRules.PartsToEdit;
     }
     private static bool UserCanDelete(string[] entireMessage)
     {

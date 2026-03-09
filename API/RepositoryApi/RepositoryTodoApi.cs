@@ -40,4 +40,14 @@ public class RepositoryTodoApi(TelegramBotContext context)
         var list = context.Todos.Where(x => x.UserId == chatId).ToList();
         return list;
     }
+
+    public async Task CompleteTodo(long chatId, string nameTodo)
+    {
+         var todo = await context
+            .Todos
+            .FirstOrDefaultAsync(x => x.UserId == chatId && x.Header == nameTodo);
+
+        todo!.Status = "Complete";
+        await context.SaveChangesAsync();
+    }
 }

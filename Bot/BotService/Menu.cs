@@ -55,7 +55,8 @@ public partial class BotService
         {
 
             var todoName = allMessageParts[1];
-            var todoDescription = allMessageParts[2];
+            var rangeDescription = allMessageParts.Skip(2);
+            var todoDescription = string.Join(" ", rangeDescription);
             var todo = new Todo(chatId, todoName, todoDescription);
             var resultApi = await _todoRepository.AddTodo(todo);
 
@@ -70,7 +71,8 @@ public partial class BotService
         if (UserCanEdit(allMessageParts))
         {
             var todoName = allMessageParts[1];
-            var newTodoDescription = allMessageParts[2];
+            var rangeDescription = allMessageParts.Skip(2);
+            var newTodoDescription = string.Join(" ", rangeDescription);
             
             var resultApi = await _todoRepository.EditTodo(chatId, todoName, newTodoDescription);
 
@@ -85,11 +87,11 @@ public partial class BotService
         {
             var todoName = allMessageParts[1];
            
-           // await _todoRepository.CompleteTodo(todo);
+           var returnApi = await _todoRepository.CompleteTodo(chatId, todoName);
             
             await bot.SendMessage(
                 chatId,
-                $"Task {todoName} successfully completed!"
+                returnApi
             );
 
             return;

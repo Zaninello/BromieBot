@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text.Json;
+using Telegram.Bot.Types;
 
 namespace Bot.Repository;
 
@@ -71,8 +72,9 @@ public class TodoRepository : ITodoRepository
         return returnApi;
     }
 
-    public async Task CompleteTodo(Models.Todo todo)
+    public async Task<string> CompleteTodo(long chatId, string nameTodo)
     {
-        throw new NotImplementedException();
+        var resultApi = await _client.GetAsync($"{url}/complete?chatId={chatId}&nameTodo={nameTodo}");
+        return await resultApi.Content.ReadAsStringAsync();
     }
 }

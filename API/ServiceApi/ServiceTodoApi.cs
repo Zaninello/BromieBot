@@ -65,6 +65,14 @@ public class ServiceTodoApi
         return true;
     }
 
+    public async Task<bool> CompleteTodo(long chatId, string nameTodo)
+    {
+        if(await VerifyTodo(chatId, nameTodo) is null)
+            return false;
+        await _repo.CompleteTodo(chatId, nameTodo);
+        return true;
+    }
+
     public async Task<List<Todo>> GetAll(long chatId)
         => await _repo.GetAll(chatId); 
 }
