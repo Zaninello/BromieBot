@@ -9,5 +9,6 @@ var botService = new BotService(
     userService, 
     todoRepository
 );
-var telegramToken = "7663425286:AAGMZVVFJ86KFGYVrbd21Jc7GjTSRfhKYuw";
+
+var telegramToken = "";
 await botService.Start(telegramToken);
